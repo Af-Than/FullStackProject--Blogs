@@ -1,0 +1,27 @@
+nodemon is used to ensure that the changes saves lively
+npm start
+npm install Express core mysql2
+npx sequelize init
+1.Install Sequelize and Sequelize CLI to the server folder.
+2.Then you want to instal sequelize and sequelize CLI  again, but with the tag '-g'. This will look like "npm install -g sequelize sequelize-cli".
+
+//why routes
+www.myblog.com/posts          → shows ALL posts
+www.myblog.com/posts/1        → shows post number 1
+www.myblog.com/posts/2        → shows post number 2
+User types → www.myblog.com/posts
+                    ↓
+Express sees "/posts" 
+                    ↓
+Sends to your routes file
+                    ↓
+routes file fetches posts from DB
+                    ↓
+User sees all the blog posts ✅
+
+npm install axios
+
+
+
+use a library called formik
+yup is a library used
