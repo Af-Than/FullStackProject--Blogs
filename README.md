@@ -91,6 +91,7 @@ JWT_SECRET=your_secret_key_here
 - Pagination for the post feed
 - User profile pages
 - Image uploads for posts
+-Putting only one single user
 
 ## License
 This project is for personal/educational purposes.

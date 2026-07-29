@@ -19,11 +19,12 @@ router.get("/",validateToken,    async (req, res) => {
 router.post("/", validateToken, async (req, res) => {
     try {
         const post = req.body;
+        post.authorname=req.user.username; // Set the username from the authenticated user
         const createdPost = await Posts.create(post);
         res.json(createdPost);
     } catch (err) {
         res.status(500).json({ error: err.message });
-    }
+    }                      
 });
 
 router.get("/byid/:id", async (req, res) => {
