@@ -91,7 +91,27 @@ JWT_SECRET=your_secret_key_here
 - Pagination for the post feed
 - User profile pages
 - Image uploads for posts
--Putting only one single user
 
 ## License
 This project is for personal/educational purposes.
+
+
+router.put("/changepassword", validateToken, async (req, res) => {
+    const { oldPassword, newPassword } = req.body;
+    try {
+        const user = await Users.findOne({ where: { username: req.user.username } });
+        const isMatch = await bcrypt.compare(oldPassword, user.password);
+        
+        if (isMatch) {
+            const hash = await bcrypt.hash(newPassword, 10);
+            await Users.update({ password: hash }, { where: { username: req.user.username } });
+            
+            // ✅ Return a success response without referencing an undefined accessToken variable
+            return res.json({ success: "Password updated successfully!" });
+        } else {
+            return res.json({ error: "Wrong password entered" });
+        }
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
