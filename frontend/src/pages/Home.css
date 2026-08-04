@@ -1,0 +1,570 @@
+/* ==========================================================================
+   HOME FEED & LISTING PAGE STYLESHEET
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Design System & CSS Custom Properties
+   -------------------------------------------------------------------------- */
+:root {
+  /* Brand & Theme Colors */
+  --home-bg: #ffffff; /* Primary background set to white */
+  --home-card-bg: #ffffff;
+  --home-card-hover-bg: #fdfdfd;
+  --home-coral: #ff5e62;
+  --home-coral-hover: #e05256;
+  --home-blue: #00b4d8;
+  --home-blue-light: #e6f8fc;
+  --home-orange: #ff9f1c;
+  --home-purple: #7209b7;
+  --home-purple-light: #f3e8ff;
+
+  /* Typography Colors */
+  --home-text-dark: #2b2d42;
+  --home-text-body: #4a4e69;
+  --home-text-muted: #6c757d;
+  --home-text-light: #8d99ae;
+
+  /* Borders & Dividers */
+  --home-border: #e9ecef;
+  --home-border-strong: #dee2e6;
+  --home-border-accent: #ff9f1c;
+
+  /* Geometry & Radius */
+  --home-radius-sm: 4px;
+  --home-radius-md: 8px;
+  --home-radius-lg: 16px;
+  --home-radius-pill: 9999px;
+
+  /* Elevation Shadows */
+  --home-shadow-subtle: 0 2px 8px rgba(0, 0, 0, 0.03);
+  --home-shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --home-shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --home-shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.12);
+
+  /* Transitions */
+  --home-transition-fast: all 0.15s ease-in-out;
+  --home-transition-base: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --home-transition-slow: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* --------------------------------------------------------------------------
+   2. Base Document Resets
+   -------------------------------------------------------------------------- */
+html, 
+body {
+  background-color: var(--home-bg) !important;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: var(--home-text-dark);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*, 
+*::before, 
+*::after {
+  box-sizing: border-box;
+}
+
+/* --------------------------------------------------------------------------
+   3. Main Page Shell Layout
+   -------------------------------------------------------------------------- */
+.home-container {
+  min-height: 100vh;
+  padding: 60px 24px 100px 24px;
+  max-width: 960px;
+  margin: 0 auto;
+  background-color: var(--home-bg);
+  position: relative;
+}
+
+.home-header-group {
+  margin-bottom: 48px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--home-border);
+}
+
+.home-title {
+  font-size: 42px;
+  color: var(--home-coral);
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+.home-subtitle {
+  color: var(--home-text-muted);
+  font-size: 18px;
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 1.5;
+  max-width: 680px;
+}
+
+/* --------------------------------------------------------------------------
+   4. Section Headers & Filters Bar
+   -------------------------------------------------------------------------- */
+.section-header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.section-heading {
+  font-size: 26px;
+  color: var(--home-blue);
+  margin: 0;
+  border-bottom: 3px solid var(--home-blue);
+  padding-bottom: 8px;
+  display: inline-block;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.feed-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-pill {
+  padding: 8px 16px;
+  border-radius: var(--home-radius-pill);
+  background-color: #f8f9fa;
+  border: 1px solid var(--home-border);
+  color: var(--home-text-body);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--home-transition-fast);
+}
+
+.filter-pill:hover {
+  background-color: var(--home-blue-light);
+  color: var(--home-blue);
+  border-color: var(--home-blue);
+}
+
+.filter-pill.active {
+  background-color: var(--home-blue);
+  color: #ffffff;
+  border-color: var(--home-blue);
+}
+
+/* --------------------------------------------------------------------------
+   5. Posts Feed Grid Layout
+   -------------------------------------------------------------------------- */
+.posts-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* Individual Card Architecture */
+.post-preview-card {
+  background-color: var(--home-card-bg);
+  border-left: 6px solid var(--home-orange);
+  border-top: 1px solid var(--home-border);
+  border-right: 1px solid var(--home-border);
+  border-bottom: 1px solid var(--home-border);
+  border-radius: var(--home-radius-md);
+  padding: 32px;
+  cursor: pointer;
+  box-shadow: var(--home-shadow-sm);
+  transition: var(--home-transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.post-preview-card:hover {
+  background-color: var(--home-card-hover-bg);
+  transform: translateX(6px);
+  box-shadow: var(--home-shadow-md);
+  border-top-color: var(--home-border-strong);
+  border-right-color: var(--home-border-strong);
+  border-bottom-color: var(--home-border-strong);
+}
+
+.post-preview-card:focus-visible {
+  outline: 3px solid var(--home-blue);
+  outline-offset: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   6. Post Card Inner Content & Details
+   -------------------------------------------------------------------------- */
+.preview-title {
+  font-size: 24px;
+  color: var(--home-text-dark);
+  margin-top: 0;
+  margin-bottom: 14px;
+  font-weight: 700;
+  line-height: 1.3;
+  transition: var(--home-transition-fast);
+}
+
+.post-preview-card:hover .preview-title {
+  color: var(--home-coral);
+}
+
+.preview-content {
+  color: var(--home-text-body);
+  font-size: 16px;
+  line-height: 1.65;
+  margin-bottom: 24px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.preview-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  border-top: 1px dashed var(--home-border);
+}
+
+.preview-author {
+  font-size: 14px;
+  color: var(--home-purple);
+  font-weight: 700;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.preview-author::before {
+  content: '✍️';
+  font-size: 14px;
+}
+
+.preview-timestamp {
+  font-size: 13px;
+  color: var(--home-text-light);
+  font-weight: 500;
+}
+
+/* Feature Badge Modifier */
+.post-preview-card.featured {
+  border-left-color: var(--home-purple);
+}
+
+.featured-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background-color: var(--home-purple-light);
+  color: var(--home-purple);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--home-radius-pill);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* --------------------------------------------------------------------------
+   7. Loading Skeleton Mechanics
+   -------------------------------------------------------------------------- */
+.post-skeleton-card {
+  background-color: #ffffff;
+  border-radius: var(--home-radius-md);
+  padding: 32px;
+  border: 1px solid var(--home-border);
+  box-shadow: var(--home-shadow-subtle);
+}
+
+.skeleton-line {
+  background: linear-gradient(90deg, #f0f2f5 25%, #e2e8f0 50%, #f0f2f5 75%);
+  background-size: 200% 100%;
+  animation: pulseSkeleton 1.5s infinite;
+  border-radius: 4px;
+}
+
+.skeleton-title {
+  height: 28px;
+  width: 65%;
+  margin-bottom: 18px;
+}
+
+.skeleton-text-1 {
+  height: 16px;
+  width: 95%;
+  margin-bottom: 12px;
+}
+
+.skeleton-text-2 {
+  height: 16px;
+  width: 80%;
+  margin-bottom: 24px;
+}
+
+.skeleton-meta {
+  height: 14px;
+  width: 35%;
+}
+
+@keyframes pulseSkeleton {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   8. Empty Feed State Display
+   -------------------------------------------------------------------------- */
+.empty-posts-view {
+  text-align: center;
+  padding: 80px 20px;
+  background: #ffffff;
+  border-radius: var(--home-radius-lg);
+  border: 2px dashed var(--home-border-strong);
+}
+
+.empty-posts-icon {
+  font-size: 56px;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.empty-posts-title {
+  font-size: 22px;
+  color: var(--home-text-dark);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.empty-posts-text {
+  font-size: 16px;
+  color: var(--home-text-muted);
+  margin-bottom: 24px;
+}
+
+/* --------------------------------------------------------------------------
+   9. Pagination & Controls
+   -------------------------------------------------------------------------- */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 48px;
+}
+
+.pagination-btn {
+  padding: 10px 20px;
+  border-radius: var(--home-radius-md);
+  border: 1px solid var(--home-border-strong);
+  background-color: #ffffff;
+  color: var(--home-text-dark);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--home-transition-fast);
+}
+
+.pagination-btn:hover:not(:disabled) {
+  border-color: var(--home-coral);
+  color: var(--home-coral);
+}
+
+.pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* --------------------------------------------------------------------------
+   10. Media Queries & Responsiveness
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .home-container {
+    padding: 32px 16px 60px 16px;
+  }
+
+  .home-title {
+    font-size: 32px;
+  }
+
+  .section-header-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .post-preview-card {
+    padding: 24px;
+  }
+
+  .preview-title {
+    font-size: 20px;
+  }
+
+  .preview-content {
+    font-size: 15px;
+  }
+
+  .preview-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-title {
+    font-size: 28px;
+  }
+
+  .section-heading {
+    font-size: 20px;
+  }
+
+  .post-preview-card:hover {
+    transform: none; /* Disable shift effect on small touchscreen devices */
+  }
+}
+
+/* --------------------------------------------------------------------------
+   11. Dark Mode Overrides (Explicit Background Lock)
+   -------------------------------------------------------------------------- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --home-bg: #ffffff; /* Explicitly forced white background */
+    --home-card-bg: #ffffff;
+    --home-text-dark: #2b2d42;
+    --home-text-body: #4a4e69;
+  }
+
+  body, 
+  .home-container {
+    background-color: #ffffff !important;
+    color: #2b2d42;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   12. Print Styles
+   -------------------------------------------------------------------------- */
+@media print {
+  .home-container {
+    padding: 0;
+    max-width: 100%;
+  }
+
+  .feed-filter-bar,
+  .pagination-container {
+    display: none;
+  }
+
+  .post-preview-card {
+    border: 1px solid #000;
+    box-shadow: none;
+    page-break-inside: avoid;
+  }
+}
+/* --------------------------------------------------------------------------
+   Like Button & Likes Count
+   -------------------------------------------------------------------------- */
+.preview-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--home-border);
+}
+
+.like-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  background-color: #ffffff;
+  border: 2px solid var(--home-coral);
+  color: var(--home-coral);
+  border-radius: var(--home-radius-pill);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--home-transition-fast);
+}
+
+.like-button::before {
+  content: '❤️';
+  font-size: 14px;
+}
+
+.like-button:hover {
+  background-color: var(--home-coral);
+  color: #7e6e6e;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(255, 94, 98, 0.3);
+}
+
+.like-button:active {
+  transform: scale(0.97);
+}
+
+.likes-count {
+  font-size: 14px;
+  color: var(--home-text-muted);
+  font-weight: 600;
+  margin: 0;
+}
+.like-button.liked {
+  background-color: var(--home-coral);
+  color: #ffffff;
+  border-color: var(--home-coral);
+  cursor: default;
+}
+
+.like-button.liked::before {
+  content: '❤️';
+}
+
+.like-button:not(.liked)::before {
+  content: '🤍';
+}
+
+.like-button.liked:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.like-button:disabled {
+  opacity: 0.85;
+  cursor: not-allowed;
+}
+/* Like Icon Styles */
+.like-icon {
+  font-size: 24px;
+  transition: transform 0.2s ease, opacity 0.2s ease, color 0.2s ease;
+}
+
+.like-icon.dimmed {
+  opacity: 0.4;
+  color: var(--home-text-muted, #adb5bd);
+}
+
+.like-icon.dimmed:hover {
+  opacity: 0.8;
+  transform: scale(1.15);
+}
+
+.like-icon.active {
+  opacity: 1;
+  color: var(--home-blue, #00b4d8);
+}
+
+.like-icon.active:hover {
+  transform: scale(1.15);
+}

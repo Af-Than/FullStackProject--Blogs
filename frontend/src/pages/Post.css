@@ -1,0 +1,343 @@
+/* ==========================================================================
+   POST DETAILS & COMMENTS PAGE STYLES
+   ========================================================================== */
+
+/* Main Container */
+.post-container {
+  min-height: 100vh;
+  background-color: #f4f7f6;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 50px 20px;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Post Card Container */
+.post-card {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 720px;
+  border-top: 6px solid #7209b7;
+  box-sizing: border-box;
+}
+
+/* Main Post Details */
+.post-title {
+  font-size: 32px;
+  color: #1e293b;
+  font-weight: 800;
+  margin-top: 0;
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+
+.post-content {
+  font-size: 17px;
+  color: #475569;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.post-author {
+  font-size: 14px;
+  color: #7209b7;
+  font-weight: 700;
+  margin: 0;
+  padding-bottom: 28px;
+  border-bottom: 2px dashed #e2e8f0;
+}
+
+/* Comments Container */
+.comments-section {
+  margin-top: 32px;
+  background-color: transparent; /* Fixes dark background block */
+}
+
+.comments-heading {
+  font-size: 22px;
+  color: #0f172a !important; /* Forces visible text color */
+  font-weight: 700;
+  margin-bottom: 20px;
+  display: block;
+}
+
+/* Form Styles */
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.comment-input {
+  width: 100%;
+  padding: 14px 16px;
+  background-color: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 15px;
+  color: #0f172a;
+  font-family: inherit;
+  resize: vertical;
+  box-sizing: border-box;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.comment-input:focus {
+  border-color: #00b4d8;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 4px rgba(0, 180, 216, 0.12);
+}
+
+.comment-submit-btn {
+  align-self: flex-end;
+  background: linear-gradient(135deg, #ff5e62, #ff9f1c);
+  color: #ffffff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(255, 94, 98, 0.25);
+  transition: all 0.2s ease;
+}
+
+.comment-submit-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(255, 94, 98, 0.35);
+}
+
+.comment-submit-btn:active {
+  transform: translateY(1px);
+}
+
+/* Comment List & Cards */
+.comment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.comment-item {
+  position: relative;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-left: 4px solid #00b4d8;
+  border-radius: 10px;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column-reverse; /* Places comment body first, author below */
+  gap: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+}
+
+.comment-body {
+  font-size: 15px;
+  color: #334155;
+  line-height: 1.5;
+  margin: 0;
+  padding-right: 32px; /* Leaves space for the delete button */
+  word-break: break-word;
+}
+
+.comment-author {
+  font-size: 13px;
+  color: #64748b;
+  font-weight: 600;
+  margin: 0;
+  text-align: right;
+}
+
+/* Delete Button Styles */
+.comment-item button {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background-color: #ef4444;
+  color: #ffffff;
+  border: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 11px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.comment-item button:hover {
+  background-color: #dc2626;
+  transform: scale(1.1);
+}
+
+/* Responsive Adaptations */
+@media (max-width: 600px) {
+  .post-card {
+    padding: 20px;
+  }
+
+  .post-title {
+    font-size: 24px;
+  }
+
+  .comment-submit-btn {
+    width: 100%;
+  }
+}
+/* --------------------------------------------------------------------------
+   Post Owner Actions (Edit buttons)
+   -------------------------------------------------------------------------- */
+.post-owner-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.edit-btn {
+  padding: 8px 16px;
+  background-color: #ffffff;
+  border: 2px solid #00b4d8;
+  color: #00b4d8;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.edit-btn:hover {
+  background-color: #00b4d8;
+  color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   Edit Section (Title / Content)
+   -------------------------------------------------------------------------- */
+.edit-section {
+  background-color: #f8f9fa;
+  border: 2px dashed #00b4d8;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.edit-textarea,
+.edit-input {
+  width: 100%;
+  padding: 14px;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: inherit;
+  color: #2b2d42;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.edit-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.edit-textarea:focus,
+.edit-input:focus {
+  border-color: #00b4d8;
+  background-color: #ffffff;
+}
+
+.edit-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.save-btn {
+  padding: 10px 22px;
+  background: linear-gradient(135deg, #ff5e62, #ff9f1c);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(255, 94, 98, 0.3);
+  transition: transform 0.1s, box-shadow 0.2s;
+}
+
+.save-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(255, 94, 98, 0.4);
+}
+
+.cancel-btn {
+  padding: 10px 22px;
+  background-color: #ffffff;
+  border: 2px solid #e9ecef;
+  color: #6c757d;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.cancel-btn:hover {
+  border-color: #adb5bd;
+  color: #2b2d42;
+}
+
+/* --------------------------------------------------------------------------
+   Delete Post Button
+   -------------------------------------------------------------------------- */
+.delete-post-btn {
+  margin-top: 20px;
+  padding: 10px 22px;
+  background-color: #ffffff;
+  border: 2px solid #ff5e62;
+  color: #ff5e62;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.delete-post-btn:hover {
+  background-color: #ff5e62;
+  color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   Delete Comment Button
+   -------------------------------------------------------------------------- */
+.delete-comment-btn {
+  margin-top: 10px;
+  padding: 6px 14px;
+  background-color: transparent;
+  border: 1.5px solid #e9ecef;
+  color: #ff5e62;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.delete-comment-btn:hover {
+  background-color: #ff5e62;
+  border-color: #ff5e62;
+  color: #ffffff;
+}

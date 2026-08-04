@@ -1,0 +1,181 @@
+/* ==========================================================================
+   USER REGISTRATION PAGE STYLES
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Theme Configuration
+   -------------------------------------------------------------------------- */
+:root {
+  --reg-bg: #f4f7f6;
+  --reg-card-bg: #ffffff;
+  --reg-purple: #7209b7;
+  --reg-purple-hover: #f3e8ff;
+  --reg-cyan: #00b4d8;
+  --reg-coral: #ff5e62;
+  --reg-orange: #ff9f1c;
+  --reg-dark: #2b2d42;
+  --reg-muted: #adb5bd;
+  --reg-input-bg: #f8f9fa;
+  --reg-input-border: #e9ecef;
+}
+
+/* --------------------------------------------------------------------------
+   2. Container Layout
+   -------------------------------------------------------------------------- */
+.create-post-container {
+  min-height: 100vh;
+  background-color: var(--reg-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+.post-form {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--reg-card-bg);
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  width: 100%;
+  max-width: 420px;
+  border-top: 8px solid var(--reg-purple);
+  box-sizing: border-box;
+}
+
+/* --------------------------------------------------------------------------
+   3. Typography & Form Titles
+   -------------------------------------------------------------------------- */
+.login-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--reg-dark);
+  margin: 0 0 8px 0;
+  text-align: center;
+}
+
+.form-label {
+  font-weight: 700;
+  margin-bottom: 6px;
+  margin-top: 20px;
+  color: var(--reg-dark);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   4. Form Input Controls
+   -------------------------------------------------------------------------- */
+.form-input {
+  padding: 14px;
+  background-color: var(--reg-input-bg);
+  border: 2px solid var(--reg-input-border);
+  border-radius: 8px;
+  font-size: 16px;
+  color: var(--reg-dark);
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.form-input::placeholder {
+  color: var(--reg-muted);
+}
+
+.form-input:focus {
+  border-color: var(--reg-cyan);
+  background-color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   5. Interactive Password Wrapper
+   -------------------------------------------------------------------------- */
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.password-wrapper .form-input {
+  width: 100%;
+  padding-right: 48px;
+  box-sizing: border-box;
+}
+
+.show-password-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+  border-radius: 6px;
+  font-size: 18px;
+  cursor: pointer;
+  color: var(--reg-muted);
+  transition: color 0.2s, background-color 0.2s;
+  user-select: none;
+}
+
+.show-password-btn:hover {
+  color: var(--reg-purple);
+  background-color: var(--reg-purple-hover);
+}
+
+/* --------------------------------------------------------------------------
+   6. Formik & Yup Validation Messaging
+   -------------------------------------------------------------------------- */
+.error-message {
+  color: var(--reg-coral);
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+/* --------------------------------------------------------------------------
+   7. Buttons & Form Submission
+   -------------------------------------------------------------------------- */
+.submit-btn {
+  margin-top: 32px;
+  padding: 14px;
+  background: linear-gradient(135deg, var(--reg-coral), var(--reg-orange));
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255, 94, 98, 0.3);
+  transition: transform 0.1s, box-shadow 0.2s;
+  width: 100%;
+}
+
+.submit-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(255, 94, 98, 0.4);
+}
+
+.submit-btn:active {
+  transform: translateY(1px);
+}
+
+/* --------------------------------------------------------------------------
+   8. Responsive Behavior
+   -------------------------------------------------------------------------- */
+@media (max-width: 480px) {
+  .post-form {
+    padding: 24px 16px;
+  }
+}

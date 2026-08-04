@@ -1,0 +1,291 @@
+/* ==========================================================================
+   AUTHENTICATION / LOGIN PAGE STYLES
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Theme Variables
+   -------------------------------------------------------------------------- */
+:root {
+  --login-bg: #f4f7f6;
+  --login-card-bg: #ffffff;
+  --login-accent-purple: #7209b7;
+  --login-accent-light-purple: #f3e8ff;
+  --login-accent-cyan: #00b4d8;
+  --login-gradient-start: #ff5e62;
+  --login-gradient-end: #ff9f1c;
+  --login-text-dark: #2b2d42;
+  --login-text-muted: #adb5bd;
+  --login-input-bg: #f8f9fa;
+  --login-input-border: #e9ecef;
+  --login-error: #ff5e62;
+  --login-radius: 8px;
+}
+
+/* --------------------------------------------------------------------------
+   2. Page Container & Shared Auth Frame
+   -------------------------------------------------------------------------- */
+.create-post-container {
+  min-height: 100vh;
+  background-color: var(--login-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+.post-form {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--login-card-bg);
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  width: 100%;
+  max-width: 420px;
+  border-top: 8px solid var(--login-accent-purple);
+  box-sizing: border-box;
+}
+
+/* --------------------------------------------------------------------------
+   3. Titles & Label Controls
+   -------------------------------------------------------------------------- */
+.login-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--login-text-dark);
+  margin: 0 0 8px 0;
+  text-align: center;
+  letter-spacing: -0.02em;
+}
+
+.form-label {
+  font-weight: 700;
+  margin-bottom: 6px;
+  margin-top: 20px;
+  color: var(--login-text-dark);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   4. Input Controls
+   -------------------------------------------------------------------------- */
+.form-input {
+  padding: 14px;
+  background-color: var(--login-input-bg);
+  border: 2px solid var(--login-input-border);
+  border-radius: var(--login-radius);
+  font-size: 16px;
+  color: var(--login-text-dark);
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.form-input::placeholder {
+  color: var(--login-text-muted);
+}
+
+.form-input:focus {
+  border-color: var(--login-accent-cyan);
+  background-color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   5. Password Input Toggle Wrapper
+   -------------------------------------------------------------------------- */
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.password-wrapper .form-input {
+  width: 100%;
+  padding-right: 48px; /* Room for the toggle button */
+  box-sizing: border-box;
+}
+
+.show-password-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+  border-radius: 6px;
+  font-size: 18px;
+  cursor: pointer;
+  color: var(--login-text-muted);
+  transition: color 0.2s, background-color 0.2s;
+  user-select: none;
+}
+
+.show-password-btn:hover {
+  color: var(--login-accent-purple);
+  background-color: var(--login-accent-light-purple);
+}
+
+.show-password-btn:focus-visible {
+  outline: 2px solid var(--login-accent-purple);
+}
+
+/* --------------------------------------------------------------------------
+   6. Validation Feedback
+   -------------------------------------------------------------------------- */
+.error-message {
+  color: var(--login-error);
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+/* --------------------------------------------------------------------------
+   7. Buttons & Form Submissions
+   -------------------------------------------------------------------------- */
+.submit-btn {
+  margin-top: 32px;
+  padding: 14px;
+  background: linear-gradient(135deg, var(--login-gradient-start), var(--login-gradient-end));
+  color: white;
+  border: none;
+  border-radius: var(--login-radius);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255, 94, 98, 0.3);
+  transition: transform 0.1s, box-shadow 0.2s;
+  width: 100%;
+}
+
+.submit-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(255, 94, 98, 0.4);
+}
+
+.submit-btn:active {
+  transform: translateY(1px);
+}
+
+/* --------------------------------------------------------------------------
+   8. Screen Media Queries
+   -------------------------------------------------------------------------- */
+@media (max-width: 480px) {
+  .post-form {
+    padding: 24px 16px;
+  }
+
+  .login-title {
+    font-size: 24px;
+  }
+}
+/* --------------------------------------------------------------------------
+   Author / Profile Link Styling
+   -------------------------------------------------------------------------- */
+.preview-author {
+  font-size: 14px;
+  color: var(--home-text-muted);
+  font-weight: 600;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.preview-author::before {
+  content: '✍️';
+  font-size: 14px;
+}
+
+.profile-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  transition: var(--home-transition-fast);
+}
+
+.profile-name {
+  color: var(--home-purple);
+  font-weight: 700;
+  border-bottom: 1.5px solid transparent;
+  transition: var(--home-transition-fast);
+}
+
+.profile-link:hover .profile-name {
+  color: var(--home-coral);
+  border-bottom-color: var(--home-coral);
+}
+
+/* --------------------------------------------------------------------------
+   Improved Post Card Layout
+   -------------------------------------------------------------------------- */
+.post-preview-card {
+  background-color: var(--home-card-bg);
+  border-left: 6px solid var(--home-orange);
+  border-top: 1px solid var(--home-border);
+  border-right: 1px solid var(--home-border);
+  border-bottom: 1px solid var(--home-border);
+  border-radius: var(--home-radius-lg);
+  padding: 28px 32px;
+  cursor: pointer;
+  box-shadow: var(--home-shadow-sm);
+  transition: var(--home-transition-base);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.post-preview-card:hover {
+  background-color: var(--home-card-hover-bg);
+  transform: translateY(-4px);
+  box-shadow: var(--home-shadow-lg);
+  border-top-color: var(--home-border-strong);
+  border-right-color: var(--home-border-strong);
+  border-bottom-color: var(--home-border-strong);
+}
+
+.preview-title {
+  font-size: 22px;
+  color: var(--home-text-dark);
+  margin: 0 0 4px 0;
+  font-weight: 800;
+  line-height: 1.3;
+  transition: var(--home-transition-fast);
+}
+
+.post-preview-card:hover .preview-title {
+  color: var(--home-coral);
+}
+
+.preview-content {
+  color: var(--home-text-body);
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0 0 4px 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.preview-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 12px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--home-border);
+}
