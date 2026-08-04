@@ -1,0 +1,23 @@
+# Environment variables (Never commit secrets to GitHub)
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Node dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# Logs
+logs
+*.log
+
+# OS & Editor generated files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
