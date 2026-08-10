@@ -7,7 +7,8 @@ const { validateToken } = require('../middlewares/authmidwares');
 const { sendEmail } = require('../helpers/mailer');
 const { Op } = require('sequelize');
 
-const JWT_SECRET = process.env.JWT_SECRETgit;
+// ✅ Fixed typo and added fallback
+const JWT_SECRET = process.env.JWT_SECRET || "importantsecret";
 
 router.post("/", async (req, res) => {
     const { username, password, email } = req.body;
@@ -155,4 +156,4 @@ router.put("/changepassword", validateToken, async (req, res) => {
     }
 });
 
-module.exports = router;
+module.exports = router; 
