@@ -1,14 +1,13 @@
-// helpers/mailer.js
 const nodemailer = require('nodemailer');
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'itsmagmahere@gmail.com',       // Your app's Gmail address
-        pass: 'qqei gaub maaa fuyy' // App Password generated from Google Account
+        user: process.env.EMAIL_USER || 'itsmagmahere@gmail.com', // Sender email address
+        pass: process.env.EMAIL_PASS                             // App Password from Google
     },
     tls: {
-        rejectUnauthorized: false // 👈 Fixes "self-signed certificate in certificate chain"
+        rejectUnauthorized: false // Prevents SSL certificate chain errors
     }
 });
 

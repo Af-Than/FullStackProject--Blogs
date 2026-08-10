@@ -8,7 +8,10 @@ const validateToken = (req, res, next) => {
     }
 
     try {
-        const validToken = verify(accessToken, "importantsecret");
+        // Read secret from .env, fallback to default if undefined
+        const secret = process.env.JWT_SECRET || "importantsecret"; 
+        
+        const validToken = verify(accessToken, secret);
         if (validToken) {
             req.user = validToken;
             return next();

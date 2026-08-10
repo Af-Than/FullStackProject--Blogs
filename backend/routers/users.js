@@ -5,14 +5,18 @@ const bcrypt = require('bcrypt');
 const { sign } = require('jsonwebtoken');
 const { validateToken } = require('../middlewares/authmidwares');
 const transporter = require('../helpers/mailer');
-const { Op } = require('sequelize')
+const { Op } = require('sequelize');
+
+// Centralize the secret reading from .env
+const JWT_SECRET = process.env.JWT_SECRET || "importantsecret";
+
 router.post("/", async (req, res) => {
-    const { username, password,email} = req.body;
+    const { username, password, email } = req.body;
 
     try {
         const existingUser = await Users.findOne({ where: { username: username } });
         if (existingUser) {
-        return res.json({ error: "Username already exists. Please choose another." });
+            return res.json({ error: "Username already exists. Please choose another." });
         }
         const hash = await bcrypt.hash(password, 10);
         const user = await Users.create({
@@ -23,7 +27,7 @@ router.post("/", async (req, res) => {
 
         const accessToken = sign(
             { username: user.username, id: user.id },
-            "importantsecret"
+            JWT_SECRET
         );
 
         res.json({ accessToken, username: user.username, id: user.id });
@@ -43,7 +47,7 @@ router.post("/login", async (req, res) => {
         if (isMatch) {
             const accessToken = sign(
                 { username: user.username, id: user.id },
-                "importantsecret"
+                JWT_SECRET
             );
             res.json({ accessToken, username: user.username, id: user.id });
         } else {
@@ -58,11 +62,10 @@ router.get("/check", validateToken, async (req, res) => {
     res.json({ success: "User is authenticated", user: req.user, username: req.user.username, id: req.user.id });
 });
 
-
 router.get("/basicinfo/:id", async (req, res) => {
     try {
         const id = req.params.id;
-        const user = await Users.findByPk(id, {attributes: ['username', 'id']});
+        const user = await Users.findByPk(id, { attributes: ['username', 'id'] });
         res.json(user);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -80,8 +83,10 @@ router.post("/send-change-otp", validateToken, async (req, res) => {
 
         await user.update({ resetOtp: otp, resetOtpExpire: expireTime });
 
+        const senderEmail = process.env.EMAIL_USER || 'itsmagmahere@gmail.com';
+
         await transporter.sendMail({
-            from: '"React App Project" <itsmagmahere@gmail.com>',
+            from: `"React App Project" <${senderEmail}>`,
             to: user.email,
             subject: 'React App Project - Password Change Verification Code',
             html: `
@@ -153,4 +158,5 @@ router.put("/changepassword", validateToken, async (req, res) => {
         return res.status(500).json({ error: err.message });
     }
 });
+
 module.exports = router;
