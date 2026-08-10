@@ -27,7 +27,7 @@ function ChangePassword() {
 
     axios
       .post(
-        'http://localhost:3000/auth/send-change-otp',
+        'https://fullstackproject-blogs.onrender.com/auth/send-change-otp',
         {},
         { headers: { accessToken: localStorage.getItem('accessToken') } }
       )
@@ -55,7 +55,7 @@ function ChangePassword() {
 
     axios
       .post(
-        'http://localhost:3000/auth/verify-otp',
+        'https://fullstackproject-blogs.onrender.com/auth/verify-otp',
         { otp: otpCode },
         { headers: { accessToken: localStorage.getItem('accessToken') } }
       )
@@ -71,7 +71,6 @@ function ChangePassword() {
       .finally(() => setLoading(false));
   };
 
-  // Formik setup
   const initialValues = {
     oldPassword: '',
     newPassword: '',
@@ -96,7 +95,7 @@ function ChangePassword() {
 
     axios
       .put(
-        'http://localhost:3000/auth/changepassword',
+        'https://fullstackproject-blogs.onrender.com/auth/changepassword',
         {
           oldPassword: data.oldPassword,
           newPassword: data.newPassword,
@@ -115,8 +114,8 @@ function ChangePassword() {
         }
       })
       .catch((err) => {
-       const backendError = err.response?.data?.error || 'Failed to send OTP code. Check backend connection.';
-      setStatusMessage({ type: 'error', text: backendError });
+        const backendError = err.response?.data?.error || 'Failed to send OTP code. Check backend connection.';
+        setStatusMessage({ type: 'error', text: backendError });
       })
       .finally(() => setSubmitting(false));
   };
@@ -132,7 +131,6 @@ function ChangePassword() {
           </div>
         )}
 
-        {/*  OTP VERIFICATION  */}
         {!isOtpVerified && (
           <div className="otp-verification-section">
             {!isOtpSent ? (
@@ -174,7 +172,6 @@ function ChangePassword() {
           </div>
         )}
 
-        {/* ---------------- STAGE 2: PASSWORD UPDATE FORM ---------------- */}
         {isOtpVerified && (
           <>
             <p className="subtitle">
@@ -188,7 +185,6 @@ function ChangePassword() {
             >
               {({ isSubmitting }) => (
                 <Form className="change-password-form">
-                  {/* CURRENT PASSWORD */}
                   <div className="form-group">
                     <label htmlFor="oldPassword">CURRENT PASSWORD</label>
                     <div className="password-input-wrapper">
@@ -210,7 +206,6 @@ function ChangePassword() {
                     <ErrorMessage name="oldPassword" component="span" className="error-text" />
                   </div>
 
-                  {/* NEW PASSWORD */}
                   <div className="form-group">
                     <label htmlFor="newPassword">NEW PASSWORD</label>
                     <div className="password-input-wrapper">
@@ -232,7 +227,6 @@ function ChangePassword() {
                     <ErrorMessage name="newPassword" component="span" className="error-text" />
                   </div>
 
-                  {/* CONFIRM NEW PASSWORD */}
                   <div className="form-group">
                     <label htmlFor="confirmPassword">CONFIRM NEW PASSWORD</label>
                     <div className="password-input-wrapper">

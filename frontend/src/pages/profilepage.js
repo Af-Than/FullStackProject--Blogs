@@ -13,7 +13,7 @@ function ProfilePage() {
 
     useEffect(() => {
         // Fetch User Info
-        axios.get(`http://localhost:3000/auth/basicinfo/${id}`)
+        axios.get(`https://fullstackproject-blogs.onrender.com/auth/basicinfo/${id}`)
             .then((res) => {
                 setUserInfo(res.data.username);
             })
@@ -22,7 +22,7 @@ function ProfilePage() {
             });        
 
         // Fetch User Posts
-        axios.get(`http://localhost:3000/posts/byuserid/${id}`)
+        axios.get(`https://fullstackproject-blogs.onrender.com/posts/byuserid/${id}`)
             .then((res) => {
                 setUserPosts(res.data);
             })
@@ -33,14 +33,12 @@ function ProfilePage() {
 
     return (
         <div className="home-container">
-            {/* Header Section */}
             <div className="home-header-group">
                 <h1 className="home-title">Profile</h1>
                 <p className="home-subtitle">
                     Viewing profile and published posts for <strong>@{userInfo || "loading..."}</strong>
                 </p>
                 
-                {/* Change Password Button (shown if current logged-in user owns the profile) */}
                 {authState?.username === userInfo && (
                     <div className="change-password-section">
                         <button 
@@ -53,7 +51,6 @@ function ProfilePage() {
                 )}
             </div>
 
-            {/* Section Header */}
             <div className="section-header-wrapper">
                 <h2 className="section-heading">User Posts</h2>
                 <span className="filter-pill active">
@@ -61,7 +58,6 @@ function ProfilePage() {
                 </span>
             </div>
 
-            {/* Posts Grid Layout */}
             <div className="posts-grid">
                 {userPosts.length === 0 ? (
                     <div className="empty-posts-view">

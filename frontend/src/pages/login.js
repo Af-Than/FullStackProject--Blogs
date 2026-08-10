@@ -1,29 +1,29 @@
 import { useNavigate } from "react-router-dom";
-import { useState,useContext} from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../helpers/authcontext";
 import "./login.css";
 
-function Login(){
+function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
     const { setAuthState } = useContext(AuthContext);
 
-const login = () => {
-    axios.post("http://localhost:3000/auth/login", { username, password }).then((res) => {
-        if (res.data.error) {
-            alert(res.data.error);
-            return;
-        }
-        localStorage.setItem("accessToken", res.data.accessToken);
-        setAuthState({ username: res.data.username, id: res.data.id, status: true });
-        navigate("/");
-    }).catch((err) => {
-        console.error(err);
-        alert("Something went wrong. Please try again.");
-    });
-};
+    const login = () => {
+        axios.post("https://fullstackproject-blogs.onrender.com/auth/login", { username, password }).then((res) => {
+            if (res.data.error) {
+                alert(res.data.error);
+                return;
+            }
+            localStorage.setItem("accessToken", res.data.accessToken);
+            setAuthState({ username: res.data.username, id: res.data.id, status: true });
+            navigate("/");
+        }).catch((err) => {
+            console.error(err);
+            alert("Something went wrong. Please try again.");
+        });
+    };
 
     return (
         <div className="create-post-container">

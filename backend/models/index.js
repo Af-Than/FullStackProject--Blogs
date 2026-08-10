@@ -4,10 +4,12 @@ const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
 const process = require('process');
-require('dotenv').config(); // Ensure .env is loaded
+
+// 💡 Force dotenv to load from backend/.env or the root folder
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') }); 
 
 const basename = path.basename(__filename);
-const models = {}; // Renamed to 'models' internally to prevent variable collision with imported modules
+const models = {}; 
 
 let sequelize;
 
@@ -28,7 +30,7 @@ if (process.env.DATABASE_URL) {
   const env = process.env.NODE_ENV || 'development';
   const config = require(path.join(__dirname, '../config/config.json'))[env];
   
-  if (config.use_env_variable) {
+  if (config.use_env_variable && process.env[config.use_env_variable]) {
     sequelize = new Sequelize(process.env[config.use_env_variable], config);
   } else {
     sequelize = new Sequelize(config.database, config.username, config.password, config);

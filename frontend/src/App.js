@@ -12,47 +12,39 @@ import PageNotFound from './pages/pagenotfound';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-
 function Navbar({ authState, setAuthState }) {
-  const navigate = useNavigate(); // ✅ this component renders INSIDE <Router>
+  const navigate = useNavigate();
 
   return (
     <nav className="navbar">
       <div className="nav-container">
         <Link to="/" className="nav-link logo-link">🚀 MyBlog</Link>
         <div className="nav-links-wrapper">
-          {
-            authState.status && (
-
+          {authState.status && (
             <>
-          <Link to="/" className="nav-link">Home</Link>
-          <Link to="/createpost" className="nav-link create-btn">Create Post</Link>
-          </>
-            )
-          }
-          {
-            !authState.status ? (
-              <>
-                <Link to="/auth/login" className="nav-link create-btn">Login</Link>
-                <Link to="/auth" className="nav-link create-btn">Register</Link>
-              </>
-            ) : (
-              <>
-              
+              <Link to="/" className="nav-link">Home</Link>
+              <Link to="/createpost" className="nav-link create-btn">Create Post</Link>
+            </>
+          )}
+          {!authState.status ? (
+            <>
+              <Link to="/auth/login" className="nav-link create-btn">Login</Link>
+              <Link to="/auth" className="nav-link create-btn">Register</Link>
+            </>
+          ) : (
+            <>
               <button className="nav-link create-btn" onClick={() => {
                 localStorage.removeItem("accessToken"); 
                 setAuthState({ username: "", id: 0, status: false });
-                
-                navigate("/auth/login"); // Redirect to login page after logout 
+                navigate("/auth/login");
               }}>
                 Logout
               </button>
-            <span className="welcome-text" onClick={() => navigate(`/profile/${authState.id}`)}>
-              Welcome, {authState.username}!
-            </span>
+              <span className="welcome-text" onClick={() => navigate(`/profile/${authState.id}`)}>
+                Welcome, {authState.username}!
+              </span>
             </>
-            )
-          }
+          )}
         </div>
       </div>
     </nav>
@@ -60,16 +52,17 @@ function Navbar({ authState, setAuthState }) {
 }
 
 function App() {
-  const [authState, setAuthState] = useState({username: "",id:0,status: false});
-useEffect(() => {
-    axios.get("http://localhost:3000/auth/check", {
+  const [authState, setAuthState] = useState({ username: "", id: 0, status: false });
+
+  useEffect(() => {
+    axios.get("https://fullstackproject-blogs.onrender.com/auth/check", {
         headers: { accessToken: localStorage.getItem("accessToken") }
     }).then((res) => {
         setAuthState({ username: res.data.username, id: res.data.id, status: true });
-    }).catch((err) => {
+    }).catch(() => {
         setAuthState({ username: "", id: 0, status: false });
     });
-}, []);
+  }, []);
 
   return (
     <div className="App">

@@ -1,10 +1,9 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import './CreatePosts.css';
-import {useEffect} from "react";
+import { useEffect, useContext } from "react";
 import axios from "axios";
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from "yup";
-import { useContext } from "react";
 import { AuthContext } from "../helpers/authcontext";
 
 function CreatePost() {
@@ -16,24 +15,23 @@ function CreatePost() {
   };
 
   useEffect(() => {
-    if(!localStorage.getItem("accessToken") ) {
+    if (!localStorage.getItem("accessToken")) {
       navigate("/auth/login");
     }
-  },[authState.status, navigate]);
+  }, [authState.status, navigate]);
+
   const handleSubmit = (values) => {
-    axios.post("http://localhost:3000/posts", values, {
+    axios.post("https://fullstackproject-blogs.onrender.com/posts", values, {
       headers: { accessToken: localStorage.getItem("accessToken") }
-    }).then((res) => {
+    }).then(() => {
       console.log("Post created successfully:");
-      navigate("/"); // Redirect to home page after successful post creation
+      navigate("/");
     })
     .catch((err) => {
       console.error(err);
       alert("Failed to create post. Please log in.");
     });
   };
-
-
 
   const validationSchema = Yup.object().shape({
     title: Yup.string().required("Title is required"),
@@ -52,7 +50,7 @@ function CreatePost() {
           <Field
             type="text"
             id="inputtitle"
-            name="title"//same as the one in yup validation schema and initial values//
+            name="title"
             placeholder="Title"
             className="form-input"
           />
@@ -68,7 +66,6 @@ function CreatePost() {
           />
           <ErrorMessage name="content" component="div" className="error-message" />
 
-  
           <ErrorMessage name="authorname" component="div" className="error-message" />
 
           <button type="submit" className="submit-btn">Create Post</button>
@@ -76,6 +73,6 @@ function CreatePost() {
       </Formik>
     </div>
   );
+}
 
-};
 export default CreatePost;

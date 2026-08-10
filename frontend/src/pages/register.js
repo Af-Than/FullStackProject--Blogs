@@ -19,7 +19,7 @@ function Register() {
 
   const handleSubmit = (values, { setFieldError, setSubmitting }) => {
     axios
-      .post("http://localhost:3000/auth", values)
+      .post("https://fullstackproject-blogs.onrender.com/auth", values)
       .then((res) => {
         if (res.data.error) {
           if (res.data.error.toLowerCase().includes("username")) {
@@ -72,7 +72,6 @@ function Register() {
       >
         {({ isSubmitting }) => (
           <Form className="post-form">
-            {/* Username Field */}
             <label className="form-label" htmlFor="inputusername">Username</label>
             <Field
               type="text"
@@ -81,10 +80,8 @@ function Register() {
               placeholder="Username"
               className="form-input"
             />
-            {/* This tag now renders both Yup errors AND backend "Username exists" errors */}
             <ErrorMessage name="username" component="div" className="error-message" />
 
-            {/* Email Field */}
             <label className="form-label" htmlFor="inputemail">Email</label>
             <Field
               type="email"
@@ -95,7 +92,6 @@ function Register() {
             />
             <ErrorMessage name="email" component="div" className="error-message" />
 
-            {/* Password Field */}
             <label className="form-label" htmlFor="inputpassword">Password</label>
             <div className="password-wrapper">
               <Field
