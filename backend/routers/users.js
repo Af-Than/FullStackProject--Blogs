@@ -4,11 +4,10 @@ const { Users } = require('../models');
 const bcrypt = require('bcrypt');
 const { sign } = require('jsonwebtoken');
 const { validateToken } = require('../middlewares/authmidwares');
-const transporter = require('../helpers/mailer');
+const { sendEmail } = require('../helpers/mailer');
 const { Op } = require('sequelize');
 
-// Centralize the secret reading from .env
-const JWT_SECRET = process.env.JWT_SECRET || "importantsecret";
+const JWT_SECRET = process.env.JWT_SECRET;
 
 router.post("/", async (req, res) => {
     const { username, password, email } = req.body;
