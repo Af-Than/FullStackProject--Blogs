@@ -35,7 +35,7 @@ app.use("/likes", likes);
 // Use process.env.PORT for Render (it assigns ports dynamically), fallback to 3000 for local dev
 const PORT = process.env.PORT || 3000;
 
-db.sequelize.sync({ alter: true }).then(() => {
+db.sequelize.sync().then(() => {
     console.log("Database synced successfully");
     app.listen(PORT, () => {
         console.log(`Server is running on port ${PORT}`);
