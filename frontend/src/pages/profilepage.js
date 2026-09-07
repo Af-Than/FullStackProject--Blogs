@@ -2,6 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState, useContext } from 'react';
 import { AuthContext } from '../helpers/authcontext';
 import axios from 'axios';
+import API_BASE_URL from '../helpers/api';
 import './profilepage.css';
 
 function ProfilePage() {    
@@ -13,7 +14,7 @@ function ProfilePage() {
 
     useEffect(() => {
         // Fetch User Info
-        axios.get(`https://fullstackproject-blogs.onrender.com/auth/basicinfo/${id}`)
+        axios.get(`${API_BASE_URL}/auth/basicinfo/${id}`)
             .then((res) => {
                 setUserInfo(res.data.username);
             })
@@ -22,7 +23,7 @@ function ProfilePage() {
             });        
 
         // Fetch User Posts
-        axios.get(`https://fullstackproject-blogs.onrender.com/posts/byuserid/${id}`)
+        axios.get(`${API_BASE_URL}/posts/byuserid/${id}`)
             .then((res) => {
                 setUserPosts(res.data);
             })

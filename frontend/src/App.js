@@ -11,6 +11,7 @@ import { AuthContext } from './helpers/authcontext';
 import PageNotFound from './pages/pagenotfound';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import API_BASE_URL from './helpers/api';
 
 function Navbar({ authState, setAuthState }) {
   const navigate = useNavigate();
@@ -55,7 +56,7 @@ function App() {
   const [authState, setAuthState] = useState({ username: "", id: 0, status: false });
 
   useEffect(() => {
-    axios.get("https://fullstackproject-blogs.onrender.com/auth/check", {
+    axios.get(`${API_BASE_URL}/auth/check`, {
         headers: { accessToken: localStorage.getItem("accessToken") }
     }).then((res) => {
         setAuthState({ username: res.data.username, id: res.data.id, status: true });

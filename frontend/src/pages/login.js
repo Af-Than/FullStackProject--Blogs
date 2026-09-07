@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
 import axios from "axios";
+import API_BASE_URL from "../helpers/api";
 import { AuthContext } from "../helpers/authcontext";
 import "./login.css";
 
@@ -11,7 +12,7 @@ function Login() {
     const { setAuthState } = useContext(AuthContext);
 
     const login = () => {
-        axios.post("https://fullstackproject-blogs.onrender.com/auth/login", { username, password }).then((res) => {
+        axios.post(`${API_BASE_URL}/auth/login`, { username, password }).then((res) => {
             if (res.data.error) {
                 alert(res.data.error);
                 return;

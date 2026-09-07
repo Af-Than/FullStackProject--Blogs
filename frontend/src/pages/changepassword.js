@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import API_BASE_URL from '../helpers/api';
 import './ChangePassword.css';
 import { AuthContext } from '../helpers/authcontext';
 
@@ -27,7 +28,7 @@ function ChangePassword() {
 
     axios
       .post(
-        'https://fullstackproject-blogs.onrender.com/auth/send-change-otp',
+        `${API_BASE_URL}/auth/send-change-otp`,
         {},
         { headers: { accessToken: localStorage.getItem('accessToken') } }
       )
@@ -55,7 +56,7 @@ function ChangePassword() {
 
     axios
       .post(
-        'https://fullstackproject-blogs.onrender.com/auth/verify-otp',
+        `${API_BASE_URL}/auth/verify-otp`,
         { otp: otpCode },
         { headers: { accessToken: localStorage.getItem('accessToken') } }
       )
@@ -95,7 +96,7 @@ function ChangePassword() {
 
     axios
       .put(
-        'https://fullstackproject-blogs.onrender.com/auth/changepassword',
+        `${API_BASE_URL}/auth/changepassword`,
         {
           oldPassword: data.oldPassword,
           newPassword: data.newPassword,

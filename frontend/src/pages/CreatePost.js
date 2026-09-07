@@ -2,6 +2,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import './CreatePosts.css';
 import { useEffect, useContext } from "react";
 import axios from "axios";
+import API_BASE_URL from "../helpers/api";
 import { useNavigate } from 'react-router-dom';
 import * as Yup from "yup";
 import { AuthContext } from "../helpers/authcontext";
@@ -21,7 +22,7 @@ function CreatePost() {
   }, [authState.status, navigate]);
 
   const handleSubmit = (values) => {
-    axios.post("https://fullstackproject-blogs.onrender.com/posts", values, {
+    axios.post(`${API_BASE_URL}/posts`, values, {
       headers: { accessToken: localStorage.getItem("accessToken") }
     }).then(() => {
       console.log("Post created successfully:");

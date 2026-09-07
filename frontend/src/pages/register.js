@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import axios from "axios";
+import API_BASE_URL from "../helpers/api";
 import "./register.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useNavigate } from 'react-router-dom';
@@ -19,7 +20,7 @@ function Register() {
 
   const handleSubmit = (values, { setFieldError, setSubmitting }) => {
     axios
-      .post("https://fullstackproject-blogs.onrender.com/auth", values)
+      .post(`${API_BASE_URL}/auth`, values)
       .then((res) => {
         if (res.data.error) {
           if (res.data.error.toLowerCase().includes("username")) {

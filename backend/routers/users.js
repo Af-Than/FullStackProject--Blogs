@@ -11,7 +11,8 @@ const { Op } = require('sequelize');
 const JWT_SECRET = process.env.JWT_SECRET || "importantsecret";
 
 router.post("/", async (req, res) => {
-    const { username, password, email } = req.body;
+    let { username, password, email } = req.body;
+    if (username) username = username.trim();
 
     try {
         const existingUser = await Users.findOne({ where: { username: username } });
@@ -22,7 +23,7 @@ router.post("/", async (req, res) => {
         const user = await Users.create({
             username: username,
             password: hash,
-            email: email
+            email: email ? email.trim() : email
         });
 
         const accessToken = sign(
@@ -37,7 +38,8 @@ router.post("/", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-    const { username, password } = req.body;
+    let { username, password } = req.body;
+    if (username) username = username.trim();
 
     try {
         const user = await Users.findOne({ where: { username: username } });

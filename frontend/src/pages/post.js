@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState, useCallback, useContext } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../helpers/api';
 import { AuthContext } from "../helpers/authcontext";
 import "./Post.css";
 
@@ -19,7 +20,7 @@ function Post() {
 
     const saveUpdatedContent = () => {
         axios.put(
-            `https://fullstackproject-blogs.onrender.com/posts/${post.id}`,
+            `${API_BASE_URL}/posts/${post.id}`,
             { content: newContent },
             { headers: { accessToken: localStorage.getItem("accessToken") } }
         )
@@ -36,7 +37,7 @@ function Post() {
 
     const saveUpdatedTitle = () => {
         axios.put(
-            `https://fullstackproject-blogs.onrender.com/posts/${post.id}`,
+            `${API_BASE_URL}/posts/${post.id}`,
             { title: newTitle },
             { headers: { accessToken: localStorage.getItem("accessToken") } }
         )
@@ -52,14 +53,14 @@ function Post() {
     }
 
     const fetchComments = useCallback(() => {
-        axios.get(`https://fullstackproject-blogs.onrender.com/comments/${id}?t=${Date.now()}`).then((res) => {
+        axios.get(`${API_BASE_URL}/comments/${id}?t=${Date.now()}`).then((res) => {
             console.log("Comments fetched successfully:", res.data);
             setComments(res.data);
         });
     }, [id]);
 
     useEffect(() => {
-        axios.get(`https://fullstackproject-blogs.onrender.com/posts/byid/${id}`).then((res) => {
+        axios.get(`${API_BASE_URL}/posts/byid/${id}`).then((res) => {
             setPost(res.data);
         });
         fetchComments();
@@ -77,7 +78,7 @@ function Post() {
 
     const handleDeleteComment = (commentId) => {
         axios
-            .delete(`https://fullstackproject-blogs.onrender.com/comments/${commentId}`, {
+            .delete(`${API_BASE_URL}/comments/${commentId}`, {
                 headers: { accessToken: localStorage.getItem("accessToken") },
             })
             .then(() => {
@@ -90,7 +91,7 @@ function Post() {
 
     const handleDeletePosts = (postId) => {
         axios
-            .delete(`https://fullstackproject-blogs.onrender.com/posts/${postId}`, {
+            .delete(`${API_BASE_URL}/posts/${postId}`, {
                 headers: { accessToken: localStorage.getItem("accessToken") },
             })
             .then(() => {
@@ -106,7 +107,7 @@ function Post() {
         e.preventDefault();
         axios
             .post(
-                "https://fullstackproject-blogs.onrender.com/comments",
+                `${API_BASE_URL}/comments`,
                 { Commentbody: newComment, postId: id },
                 { headers: { accessToken: localStorage.getItem("accessToken") } }
             )

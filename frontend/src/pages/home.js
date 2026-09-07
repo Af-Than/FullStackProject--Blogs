@@ -1,4 +1,5 @@
 import axios from 'axios';
+import API_BASE_URL from '../helpers/api';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
@@ -11,7 +12,7 @@ function Home() {
   const navigate = useNavigate();
 
   const fetchPosts = () => {
-    axios.get("https://fullstackproject-blogs.onrender.com/posts", {
+    axios.get(`${API_BASE_URL}/posts`, {
       headers: { accessToken: localStorage.getItem("accessToken") }
     })
     .then((res) => {
@@ -41,7 +42,7 @@ function Home() {
     e.stopPropagation();
     
     axios.post(
-      "https://fullstackproject-blogs.onrender.com/likes",
+      `${API_BASE_URL}/likes`,
       { postId: postId },
       { headers: { accessToken: localStorage.getItem("accessToken") } }
     )
