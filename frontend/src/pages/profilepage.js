@@ -11,8 +11,10 @@ function ProfilePage() {
     const { authState } = useContext(AuthContext);
     const [userInfo, setUserInfo] = useState("");
     const [userPosts, setUserPosts] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        setLoading(true);
         // Fetch User Info
         axios.get(`${API_BASE_URL}/auth/basicinfo/${id}`)
             .then((res) => {
@@ -29,63 +31,127 @@ function ProfilePage() {
             })
             .catch((err) => {
                 console.error("Failed to fetch user posts:", err);
-            });        
+            })
+            .finally(() => setLoading(false));        
     }, [id]);
 
+    const isOwnProfile = authState?.username === userInfo;
+    const initials = userInfo ? userInfo.charAt(0).toUpperCase() : '?';
+
     return (
-        <div className="home-container">
-            <div className="home-header-group">
-                <h1 className="home-title">Profile</h1>
-                <p className="home-subtitle">
-                    Viewing profile and published posts for <strong>@{userInfo || "loading..."}</strong>
-                </p>
-                
-                {authState?.username === userInfo && (
-                    <div className="change-password-section">
+        <div className="profile-page">
+            {/* Hero Banner */}
+            <div className="profile-hero">
+                <div className="profile-hero-pattern"></div>
+                <div className="profile-hero-content">
+                    <div className="profile-avatar-ring">
+                        <div className="profile-avatar">
+                            {initials}
+                        </div>
+                    </div>
+                    <div className="profile-identity">
+                        <h1 className="profile-display-name">
+                            {userInfo || "Loading..."}
+                        </h1>
+                        <span className="profile-handle">@{userInfo || "..."}</span>
+                    </div>
+                </div>
+            </div>
+
+            {/* Stats & Actions Bar */}
+            <div className="profile-stats-bar">
+                <div className="profile-stat">
+                    <span className="stat-number">{userPosts.length}</span>
+                    <span className="stat-label">{userPosts.length === 1 ? 'Post' : 'Posts'}</span>
+                </div>
+                {isOwnProfile && (
+                    <div className="profile-actions-group">
                         <button 
-                            className="change-password-btn"
+                            className="profile-action-btn"
                             onClick={() => navigate(`/changepassword`)}
                         >
-                            Change Password
+                            🔒 Change Password
+                        </button>
+                        <button 
+                            className="profile-action-btn primary"
+                            onClick={() => navigate('/createpost')}
+                        >
+                            ✍️ New Post
                         </button>
                     </div>
                 )}
             </div>
 
-            <div className="section-header-wrapper">
-                <h2 className="section-heading">User Posts</h2>
-                <span className="filter-pill active">
-                    {userPosts.length} {userPosts.length === 1 ? 'Post' : 'Posts'}
-                </span>
-            </div>
+            {/* Posts Section */}
+            <div className="profile-posts-section">
+                <div className="profile-section-header">
+                    <h2 className="profile-section-title">Published Posts</h2>
+                    <div className="profile-section-line"></div>
+                </div>
 
-            <div className="posts-grid">
-                {userPosts.length === 0 ? (
-                    <div className="empty-posts-view">
-                        <span className="empty-posts-icon">📝</span>
-                        <h3 className="empty-posts-title">No posts found</h3>
-                        <p className="empty-posts-text">This user has not authored any posts yet.</p>
+                {loading ? (
+                    <div className="profile-loading-grid">
+                        {[1, 2, 3].map((i) => (
+                            <div key={i} className="profile-skeleton-card">
+                                <div className="skeleton-bar title"></div>
+                                <div className="skeleton-bar"></div>
+                                <div className="skeleton-bar short"></div>
+                            </div>
+                        ))}
                     </div>
-                ) : (
-                    userPosts.map((post) => (
-                        <div 
-                            key={post.id} 
-                            className="post-preview-card"
-                            onClick={() => navigate(`/post/${post.id}`)}
-                        >
-                            <h3 className="preview-title">{post.title}</h3>
-                            <p className="preview-content">{post.postText || post.content}</p>
-                            
-                            <div className="preview-footer">
-                                <p className="preview-author">{userInfo}</p>
-                                {post.Likes && (
-                                    <span className="likes-count">
-                                        ❤️ {post.Likes.length} {post.Likes.length === 1 ? 'Like' : 'Likes'}
-                                    </span>
-                                )}
+                ) : userPosts.length === 0 ? (
+                    <div className="profile-empty-state">
+                        <div className="empty-illustration">
+                            <span className="empty-icon">📄</span>
+                            <div className="empty-circles">
+                                <span className="circle c1"></span>
+                                <span className="circle c2"></span>
+                                <span className="circle c3"></span>
                             </div>
                         </div>
-                    ))
+                        <h3 className="empty-title">No posts yet</h3>
+                        <p className="empty-text">
+                            {isOwnProfile 
+                                ? "Your published posts will appear here. Start writing!" 
+                                : "This user hasn't published any posts yet."}
+                        </p>
+                        {isOwnProfile && (
+                            <button 
+                                className="empty-cta"
+                                onClick={() => navigate('/createpost')}
+                            >
+                                Create your first post →
+                            </button>
+                        )}
+                    </div>
+                ) : (
+                    <div className="profile-posts-grid">
+                        {userPosts.map((post, index) => (
+                            <div 
+                                key={post.id} 
+                                className="profile-post-card"
+                                onClick={() => navigate(`/post/${post.id}`)}
+                                style={{ animationDelay: `${index * 0.06}s` }}
+                            >
+                                <div className="post-card-accent"></div>
+                                <div className="post-card-inner">
+                                    <h3 className="post-card-title">{post.title}</h3>
+                                    <p className="post-card-excerpt">
+                                        {(post.postText || post.content || "").length > 120 
+                                            ? (post.postText || post.content).substring(0, 120) + "..." 
+                                            : (post.postText || post.content)}
+                                    </p>
+                                    <div className="post-card-meta">
+                                        <span className="post-card-author">
+                                            <span className="author-dot"></span>
+                                            {userInfo}
+                                        </span>
+                                        <span className="post-card-read">Read →</span>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 )}
             </div>
         </div>
